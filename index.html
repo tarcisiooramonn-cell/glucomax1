@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
+<title>GlucoMax</title>
+
+<!-- ===== PRELOADS VTURB ===== -->
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/20a070d6-dd0d-4397-aab3-ecc0fb3a86c2/players/6af689a4586808a8c1539ba4/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://license.vturb.com">
+
+<!-- ===== SCRIPT KASHPAY (no head, sem async/defer) ===== -->
+<script src="https://checkout.kashpay.com/scripts/upsell-processor.js" data-kashpay-payment-recovery="true"></script>
+
+<style>
+:root{
+  --gold:#c9a84c;
+  --gold-soft:#e3c977;
+  --gold-dim:rgba(201,168,76,.22);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse 70% 40% at 50% -6%, rgba(201,168,76,.13), transparent 62%),
+    radial-gradient(ellipse 90% 50% at 50% 108%, rgba(201,168,76,.06), transparent 60%),
+    #0d0d0d;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+  font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+}
+
+/* gancho do topo */
+.hook{text-align:center;margin-bottom:20px;max-width:400px}
+.pill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 13px;border-radius:999px;
+  border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.07);
+  color:var(--gold);font-size:.64rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+}
+.pill i{
+  width:6px;height:6px;border-radius:50%;background:#27b163;
+  box-shadow:0 0 0 0 rgba(39,177,99,.6);animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(39,177,99,.55)}
+  70%{box-shadow:0 0 0 7px rgba(39,177,99,0)}
+  100%{box-shadow:0 0 0 0 rgba(39,177,99,0)}
+}
+.hook-line{
+  margin:13px 0 0;font-family:Georgia,'Times New Roman',serif;font-weight:700;
+  font-size:clamp(1.3rem,5.4vw,1.7rem);line-height:1.2;color:#fff;
+}
+.hook-sub{
+  margin:8px 0 0;color:var(--gold-soft);font-size:.8rem;
+  line-height:1.5;opacity:.82;
+}
+
+/* marca discreta */
+.brand{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+}
+.brand::before,.brand::after{
+  content:"";width:34px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-dim));
+}
+.brand::after{background:linear-gradient(90deg,var(--gold-dim),transparent)}
+.brand span{
+  font-family:Georgia,'Times New Roman',serif;font-weight:700;
+  font-size:.82rem;letter-spacing:.28em;color:var(--gold-soft);
+  text-transform:uppercase;
+}
+
+/* moldura dourada do player */
+.player-wrap{
+  position:relative;width:100%;max-width:400px;
+  padding:7px;border-radius:16px;
+  border:1px solid var(--gold-dim);
+  background:linear-gradient(165deg,rgba(201,168,76,.09),rgba(201,168,76,.02) 45%,transparent);
+}
+.player-wrap::before,.player-wrap::after{
+  content:"";position:absolute;width:16px;height:16px;
+  border:1px solid rgba(201,168,76,.55);
+}
+.player-wrap::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-radius:16px 0 0 0}
+.player-wrap::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-radius:0 0 16px 0}
+.player-wrap vturb-smartplayer{border-radius:11px;overflow:hidden;display:block}
+
+/* botao escondido ate o temporizador liberar (ver script no fim do body) */
+#reveal{display:none;width:100%;max-width:400px;margin-top:22px}
+#reveal.show{display:block;animation:rise .55s cubic-bezier(.2,.8,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
+
+#reveal button{
+  width:100%!important;
+  max-width:100%!important;
+  min-height:58px;
+  box-shadow:0 10px 26px rgba(33,150,83,.32),0 0 0 1px rgba(201,168,76,.28);
+  transition:filter .12s ease,transform .12s ease;
+}
+#reveal button:hover{filter:brightness(1.08)}
+#reveal button:active{transform:translateY(1px)}
+
+/* selo "reduction debloquee" (aparece junto com o botao) */
+.unlock{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  margin:0 auto 14px;padding:9px 16px;width:fit-content;max-width:100%;
+  border-radius:999px;border:1px solid rgba(201,168,76,.5);
+  background:linear-gradient(180deg,rgba(201,168,76,.16),rgba(201,168,76,.05));
+  color:var(--gold-soft);font-size:.78rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;text-align:center;
+}
+.unlock svg{width:17px;height:17px;flex:none}
+#reveal.show .unlock{animation:pop .7s cubic-bezier(.2,1.4,.4,1) .25s both}
+#reveal.show .unlock .shackle{transform-origin:17px 11px;animation:open .5s ease .8s both}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+@keyframes open{from{transform:rotate(0)}to{transform:rotate(28deg) translateY(-1px)}}
+#reveal.celebrate button{animation:glow 1.3s ease-in-out .5s 3}
+@keyframes glow{
+  0%,100%{box-shadow:0 10px 26px rgba(33,150,83,.32),0 0 0 1px rgba(201,168,76,.28)}
+  50%{box-shadow:0 10px 34px rgba(33,150,83,.6),0 0 0 4px rgba(227,201,119,.55),0 0 34px rgba(227,201,119,.45)}
+}
+
+/* placeholder temporario */
+.slot-empty{
+  padding:18px;border-radius:12px;text-align:center;
+  border:1px dashed rgba(201,168,76,.4);background:#100f0d;
+  color:#8c8068;font-size:.74rem;line-height:1.5;
+}
+.slot-empty code{color:var(--gold)}
+
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+
+@media(prefers-reduced-motion:reduce){
+  #reveal.show,#reveal.show .unlock,#reveal.show .unlock .shackle,#reveal.celebrate button{animation:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="hook">
+  <span class="pill"><i></i>Commande confirmée</span>
+  <p class="hook-line">Ne fermez pas cette page.</p>
+  <p class="hook-sub">Il reste une dernière étape avant votre accès.</p>
+</div>
+
+<div class="brand"><span>GlucoMax</span></div>
+
+<!-- ===== VSL ===== -->
+<div class="player-wrap">
+  <vturb-smartplayer id="vid-6af689a4586808a8c1539ba4" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;">
+    <div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 177.77777777777777% 0 0; z-index: 0; background-color: black;"></div>
+  </vturb-smartplayer>
+  <script type="text/javascript">
+    var s=document.createElement("script");
+    s.src="https://scripts.converteai.net/20a070d6-dd0d-4397-aab3-ecc0fb3a86c2/players/6af689a4586808a8c1539ba4/v4/player.js",
+    s.async=!0,document.head.appendChild(s);
+  </script>
+</div>
+
+<!-- ===== BOTAO (liberado 3min30 depois que a VSL comeca) ===== -->
+<div id="reveal">
+  <div class="unlock" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="4" y="11" width="16" height="10" rx="2"/>
+      <path class="shackle" d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+    <span>Votre réduction est débloquée</span>
+  </div>
+  <!-- ============================================= -->
+  <!-- COLE AQUI O BOTAO DA KASHPAY (troque o bloco abaixo) -->
+  <button type="button" onclick="acceptUpsell('https://checkout.kashpay.com/u/f71b69b6782eef26')" style="font-family: 'Poppins'; font-size: 26px; font-weight: 600; line-height: 1.3; color: #ffffff; background-color: #02451c; border: none; border-radius: 50px; padding: 13px 7%; cursor: pointer; text-align: center; display: block; margin: auto;">Bénéficier de ma réduction</button>
+  <!-- FIM DO BOTAO KASHPAY -->
+  <!-- ============================================= -->
+</div>
+
+<!-- ===== TEMPORIZADOR DO BOTAO ===== -->
+<script>
+(function(){
+  var DELAY = 210;            // segundos ate liberar o botao (3min30). Mude aqui se precisar.
+  var SAFETY = 20;            // se o inicio do video nao for detectado, a contagem comeca apos X s
+  var KEY = 'gmx_upsell_t0_6af689a4';
+  var box = document.getElementById('reveal');
+  if(!box) return;
+  var t0 = 0, shown = false;
+
+  function read(){ try{ return parseInt(sessionStorage.getItem(KEY),10) || 0; }catch(e){ return 0; } }
+  function save(v){ try{ sessionStorage.setItem(KEY, String(v)); }catch(e){} }
+
+  var loadedAt = Date.now();
+  function show(){
+    if(shown) return;
+    shown = true;
+    box.classList.add('show');
+    // so comemora se liberou com a pagina aberta (nao ao recarregar ja liberado)
+    if(Date.now() - loadedAt < 3000) return;
+    box.classList.add('celebrate');
+    try{ box.scrollIntoView({behavior:'smooth', block:'end'}); }catch(e){}
+    var calm = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(!calm) confetti();
+  }
+  // chuva de confete nas cores da marca (dourado, verde, branco)
+  function confetti(){
+    var c = document.getElementById('confetti');
+    if(!c || !c.getContext) return;
+    var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = c.width = innerWidth * dpr, H = c.height = innerHeight * dpr;
+    var cols = ['#c9a84c','#e3c977','#219653','#27b163','#f5efe0'];
+    var P = [], N = innerWidth < 600 ? 110 : 170, i;
+    for(i = 0; i < N; i++){
+      var side = i % 2 ? 1 : -1;                       // dois canhoes, um de cada lado
+      P.push({
+        x: side > 0 ? W * .02 : W * .98, y: H * .72,
+        vx: side * (4 + Math.random() * 9) * dpr,
+        vy: -(9 + Math.random() * 13) * dpr,
+        w: (5 + Math.random() * 6) * dpr, h: (8 + Math.random() * 8) * dpr,
+        r: Math.random() * 6.28, vr: (Math.random() - .5) * .35,
+        col: cols[i % cols.length], life: 0
+      });
+    }
+    var t1 = Date.now(), DUR = 3600;
+    (function frame(){
+      var el = Date.now() - t1;
+      ctx.clearRect(0, 0, W, H);
+      if(el > DUR) return;
+      for(i = 0; i < P.length; i++){
+        var p = P[i];
+        p.vy += .34 * dpr; p.vx *= .985; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, 1 - Math.max(0, el - DUR * .6) / (DUR * .4));
+        ctx.translate(p.x, p.y); ctx.rotate(p.r);
+        ctx.fillStyle = p.col;
+        ctx.fillRect(-p.w / 2, -p.h / 2 * Math.abs(Math.cos(p.r * 1.7)), p.w, p.h * Math.abs(Math.cos(p.r * 1.7)) + 1);
+        ctx.restore();
+      }
+      requestAnimationFrame(frame);
+    })();
+  }
+  // inicia a contagem (uma vez so). Se a pagina for recarregada, continua de onde parou.
+  function start(){
+    if(t0) return;
+    t0 = read();
+    if(!t0){ t0 = Date.now(); save(t0); }
+  }
+  function findVideo(){
+    var v = document.querySelector('video');
+    if(v) return v;
+    var p = document.querySelector('vturb-smartplayer');
+    if(p && p.shadowRoot) return p.shadowRoot.querySelector('video');
+    return null;
+  }
+  function tick(){
+    if(shown) return;
+    var v = null;
+    try{ v = findVideo(); }catch(e){}
+    if(v){
+      if(!v.paused && v.currentTime > 0) start();      // VSL comecou a rodar
+      if(v.currentTime >= DELAY) return show();        // ja assistiu 3min30 do video
+    }
+    if(t0 && Date.now() - t0 >= DELAY * 1000) show();  // 3min30 desde o inicio
+  }
+
+  if(read()) start();                                   // recarregou a pagina: mantem a contagem
+  var wrap = document.querySelector('.player-wrap');
+  if(wrap){
+    ['pointerdown','touchstart','click'].forEach(function(ev){
+      wrap.addEventListener(ev, start, {capture:true, passive:true});
+    });
+  }
+  setTimeout(start, SAFETY * 1000);                     // rede de seguranca
+  setInterval(tick, 500);
+  document.addEventListener('visibilitychange', tick);
+})();
+</script>
+
+</body>
+</html>
