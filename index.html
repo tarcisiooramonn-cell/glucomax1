@@ -240,7 +240,7 @@
 
 
   /* ================= v3: first-screen hook + compact path ================= */
-  .page{padding-top:14px;padding-bottom:110px}
+  .page{padding-top:14px;padding-bottom:70px}
   .eyebrow{margin-bottom:10px}
   h1{font-size:clamp(29px,7.6vw,46px);margin-bottom:14px}
   .device{margin:0 -16px 14px}
@@ -293,6 +293,26 @@
   .j-go{padding:12px 14px;border-radius:14px;font-size:14px;font-weight:800;white-space:nowrap;color:#fff;
     background:linear-gradient(180deg,#5af08e,#22c862 45%,#11903f);box-shadow:0 0 18px rgba(61,220,132,.45)}
   @media(max-width:360px){.j-txt{display:none}.badge{width:92px;height:92px}.badge b{font-size:26px}}
+
+
+  /* bank approval guide (reduces 3-D Secure timeouts on the one-click charge) */
+  .offer-capsule .pre-pay-note{margin:20px 18px 0;padding:16px 16px 14px;border-radius:16px;text-align:left;
+    border:1px solid rgba(243,197,108,.35);background:linear-gradient(180deg,rgba(243,197,108,.10),rgba(243,197,108,.03))}
+  .pre-pay-note h3{font-family:var(--body);font-size:15.5px;font-weight:800;line-height:1.3;color:var(--gold-hi);margin-bottom:12px}
+  .pre-pay-note ol{list-style:none;counter-reset:s;margin:0;padding:0}
+  .pre-pay-note li{counter-increment:s;position:relative;padding:0 0 12px 36px;font-size:14.5px;line-height:1.5;color:var(--soft)}
+  .pre-pay-note li:last-child{padding-bottom:0}
+  .pre-pay-note li::before{content:counter(s);position:absolute;left:0;top:-1px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+    font-size:12.5px;font-weight:800;color:#fff;background:radial-gradient(circle at 35% 30%,#ff8a7a,var(--blood) 60%,#7a0a10);box-shadow:0 0 10px rgba(227,38,47,.45)}
+  .pre-pay-note li:not(:last-child)::after{content:"";position:absolute;left:11.5px;top:25px;bottom:3px;width:1px;background:linear-gradient(var(--blood),rgba(227,38,47,.1))}
+  .pre-pay-note strong{color:var(--text);font-weight:800}
+
+
+  .pre-pay-note h3{display:flex;gap:9px;align-items:flex-start}
+  .pre-pay-note h3 svg{flex:0 0 18px;width:18px;height:18px;margin-top:1px;fill:none;stroke:var(--gold-hi);stroke-width:2;stroke-linecap:round}
+  .ppn-tip{margin-top:12px;padding:10px 12px;border-radius:12px;font-size:13.5px;line-height:1.5;color:var(--soft);background:rgba(0,0,0,.28);border:1px dashed rgba(243,197,108,.3)}
+  .ppn-tip b{color:var(--gold-hi)}
+  .ppn-stay{margin:12px 18px 0;text-align:center;font-size:13px;font-weight:700;color:#ff9a8c}
 
   /* ---------- gentle reveal ---------- */
   .js .rv,.js .rv-scale{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;transition-delay:var(--d,0s)}
@@ -470,9 +490,19 @@
       <div><b>100%</b><span>Numérique</span></div>
     </div>
   </div>
+  <div class="pre-pay-note">
+    <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10.5 18h3"/></svg>Validation bancaire&nbsp;: 10 secondes pour ne pas perdre votre remise</h3>
+    <ol>
+      <li><strong>Ouvrez l’application de votre banque maintenant</strong> et gardez votre téléphone à portée de main.</li>
+      <li>Cliquez sur le bouton&nbsp;: <strong>aucune saisie de carte</strong>, GlucoMax est ajouté à votre commande en un clic.</li>
+      <li>Si votre banque vous envoie une notification, <strong>validez-la tout de suite</strong>&nbsp;: elle expire vite.</li>
+    </ol>
+    <p class="ppn-tip"><b>Pas de notification&nbsp;?</b> Ouvrez directement l’application de votre banque&nbsp;: la demande vous y attend. Cette vérification est normale, c’est votre banque qui protège votre carte.</p>
+  </div>
   <div class="cta-halo">
     <button type="button" onclick="acceptUpsell('https://checkout.kashpay.com/u/f71b69b6782eef26')" style="font-family: 'Poppins'; font-size: 26px; font-weight: 600; line-height: 1.3; color: #ffffff; background-color: #02451c; border: none; border-radius: 50px; padding: 13px 7%; cursor: pointer; text-align: center; display: block; margin: auto;">Bénéficier de ma réduction</button>
   </div>
+  <p class="ppn-stay">Ne fermez pas et n’actualisez pas cette page pendant la validation.</p>
   <div class="microcopy">
     <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>Accès immédiat par e-mail</span>
     <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Paiement sécurisé</span>
@@ -495,11 +525,6 @@
 
 </main>
 
-<a class="jump" href="#offre" aria-hidden="true" tabindex="-1">
-  <span class="j-val">-70%</span>
-  <span class="j-txt">Votre remise aujourd'hui</span>
-  <span class="j-go">Voir ma remise ↓</span>
-</a>
 
 
 <script>
@@ -583,15 +608,6 @@
       }, { threshold: .6 }).observe(cmp);
     }
   }
-})();
-</script>
-<script>
-(function(){
-  var j=document.querySelector('.jump'), hero=document.querySelector('.device'), offer=document.getElementById('offre'); if(!j||!hero||!offer) return;
-  var offerIn=false;
-  function upd(){ var on = hero.getBoundingClientRect().bottom < 0 && !offerIn; j.classList.toggle('show', on); j.setAttribute('aria-hidden', on ? 'false' : 'true'); j.tabIndex = on ? 0 : -1; }
-  if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ offerIn = es[0].isIntersecting; upd(); }, {threshold:.15}).observe(offer); }
-  window.addEventListener('scroll', upd, {passive:true}); upd();
 })();
 </script>
 </body>
